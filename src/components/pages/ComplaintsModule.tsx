@@ -107,6 +107,61 @@ export default function ComplaintsModule({ onNavigate, userName }: ComplaintsMod
     if (fileInput) fileInput.value = '';
   };
 
+  const compressImage = (file: File, maxWidth = 1200, maxHeight = 1200, quality = 0.75): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) {
+            resolve(file);
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                  type: "image/jpeg",
+                  lastModified: Date.now(),
+                });
+                resolve(compressedFile);
+              } else {
+                resolve(file);
+              }
+            },
+            "image/jpeg",
+            quality
+          );
+        };
+        img.onerror = (err) => reject(err);
+      };
+      reader.onerror = (err) => reject(err);
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -127,7 +182,16 @@ export default function ComplaintsModule({ onNavigate, userName }: ComplaintsMod
         longitude: longitude ? parseFloat(longitude) : undefined,
       };
 
-      await complaintsAPI.createComplaint(complaintData, uploadedFile || undefined);
+      let finalFile = uploadedFile || undefined;
+      if (uploadedFile) {
+        try {
+          finalFile = await compressImage(uploadedFile);
+        } catch (compressErr) {
+          console.error("Compression failed, using original file:", compressErr);
+        }
+      }
+
+      await complaintsAPI.createComplaint(complaintData, finalFile);
 
       // Refresh complaints
       const refreshed = await complaintsAPI.getMyComplaints();
