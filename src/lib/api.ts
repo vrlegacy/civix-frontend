@@ -3,7 +3,7 @@ import axios from "axios";
 
 // ✅ Create axios instance with base configuration
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_API_URL || "https://civix-backend-8grk.onrender.com/api",
   timeout: 30000, // 30s default; image uploads get 60s override below
   // Do not set a default Content-Type here so that axios can
   // automatically set the correct header for FormData (multipart) requests.
@@ -70,12 +70,12 @@ export interface Petition {
   signatureGoal: number;
   status: string;
   creator: string;
-    signatures?: Array<{
-      name: string;
-      email: string;
-      comment?: string;
-      date: string;
-    }>;
+  signatures?: Array<{
+    name: string;
+    email: string;
+    comment?: string;
+    date: string;
+  }>;
 }
 
 export interface Complaint {
@@ -130,6 +130,11 @@ export const authAPI = {
 
   verifyEmail: async (token: string) => {
     const response = await api.post("/auth/verify-email", { token });
+    return response.data;
+  },
+
+  resetPassword: async (token: string, newPassword: string) => {
+    const response = await api.post("/auth/reset-password", { token, newPassword });
     return response.data;
   },
 

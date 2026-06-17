@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Page } from '@/types';
 import { toast } from 'sonner';
-import axios from 'axios';
+import { authAPI } from '@/lib/api';
 
 interface ResetPasswordProps {
     onNavigate: (page: Page) => void;
@@ -26,19 +26,15 @@ const ResetPassword = ({ onNavigate }: ResetPasswordProps) => {
             toast.error("Passwords do not match.");
             return;
         }
-        if (!token || !email) {
-            toast.error("Invalid or missing reset token/email.");
+        if (!token) {
+            toast.error("Invalid or missing reset token.");
             return;
         }
 
         setIsLoading(true);
         try {
-            const response = await axios.post('http://localhost:3000/resetpassword', {
-                userEmail: email,
-                token,
-                newPassword,
-            });
-            toast.success(response.data.message);
+            const response = await authAPI.resetPassword(token, newPassword);
+            toast.success(response.message || "Password reset successful!");
             onNavigate('login');
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
