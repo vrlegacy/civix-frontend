@@ -22,7 +22,9 @@ type NominatimReverseResponse = {
   [key: string]: any;
 };
 
-const API_BASE_URL = 'http://localhost:5000'; // <-- CHANGE THIS PORT IF NEEDED
+const API_BASE_URL = import.meta.env.VITE_API_URL 
+  ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') 
+  : 'http://localhost:5000';
 
 interface SignUpPageProps {
   onNavigate: (page: 'landing' | 'login' | 'dashboard') => void;
