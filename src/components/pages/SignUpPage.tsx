@@ -196,7 +196,7 @@ export default function SignUpPage({ onNavigate, onSignUp }: SignUpPageProps) {
       <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1727702872022-927491562edb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGNpdmljJTIwcGF0dGVybiUyMHZvdGluZyUyMGRlbW9jcmFjeXxlbnwxfHx8fDE3NTg3MTgzMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral')` }} />
       <div className="absolute inset-0 opacity-95" style={{ background: 'linear-gradient(160deg, #F5DEB3, #EAD8C0)' }} />
       <div className="relative z-10 flex flex-col min-h-screen">
-        <header className="w-full px-6 py-4">
+        <header className="w-full px-4 sm:px-6 py-4">
           <div className="max-w-7xl mx-auto flex items-center">
             <Button variant="ghost" size="sm" onClick={() => onNavigate('landing')} className="text-civix-dark-brown hover:bg-civix-dark-brown/10 mr-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -205,14 +205,14 @@ export default function SignUpPage({ onNavigate, onSignUp }: SignUpPageProps) {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-civix-dark-brown to-civix-civic-green bg-clip-text text-transparent" style={{ fontWeight: '700' }}>Civix</h1>
           </div>
         </header>
-        <main className="flex-1 flex items-center justify-center px-6 py-4">
+        <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-4">
           <div className="w-full max-w-2xl">
             <Card className="bg-white/95 backdrop-blur-sm shadow-2xl border-0">
-              <CardHeader className="text-center space-y-1 pb-3">
+              <CardHeader className="text-center space-y-1 pb-3 p-4 sm:p-6">
                 <CardTitle className="text-2xl text-civix-dark-brown" style={{ fontWeight: '700' }}>Create Your Account</CardTitle>
                 <CardDescription className="text-sm text-civix-dark-brown/70" style={{ fontWeight: '400' }}>Join Civix and start making change today.</CardDescription>
               </CardHeader>
-              <CardContent className="pb-4">
+              <CardContent className="p-4 sm:p-6 pb-4">
                 {!isSubmitted ? (
                   <>
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -264,7 +264,7 @@ export default function SignUpPage({ onNavigate, onSignUp }: SignUpPageProps) {
                             </Button>
                           </div>
                           {showMap && (
-                            <div style={{ position: 'absolute', zIndex: 50, top: '100%', right: 0, marginTop: 4, borderRadius: 8, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.2)', width: '320px', background: 'white', padding: 8 }}>
+                            <div className="z-50 mt-1 rounded-lg overflow-hidden border border-civix-warm-beige bg-white p-2 shadow-xl w-full relative md:absolute md:right-0 md:top-full md:w-[320px]">
                               <MapContainer
                                 center={mapPosition || [20.5937, 78.9629]} // Center on India by default
                                 zoom={5}
