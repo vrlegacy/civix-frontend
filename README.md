@@ -4,6 +4,8 @@ Civix is a modern, responsive, and interactive civic engagement web application 
 
 **Live Application:** [https://civix-zeta.vercel.app/](https://civix-zeta.vercel.app/)
 
+**Backend Rep:**  https://github.com/vrlegacy/civix-backend
+
 ---
 
 ## 🌟 Key Features
