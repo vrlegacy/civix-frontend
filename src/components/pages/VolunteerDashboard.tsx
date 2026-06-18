@@ -159,17 +159,17 @@ export default function VolunteerDashboard({ onNavigate, userName }: VolunteerDa
   return (
     <div className="max-w-7xl mx-auto py-2">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
           <Button
             variant="ghost"
             onClick={() => onNavigate('dashboard')}
-            className="text-civix-dark-brown dark:text-civix-sandal hover:bg-civix-warm-beige dark:hover:bg-gray-700"
+            className="text-civix-dark-brown dark:text-civix-sandal hover:bg-civix-warm-beige dark:hover:bg-gray-700 h-9 px-3"
           >
-            <ArrowLeft className="w-5 h-5 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
-          <Separator orientation="vertical" className="h-6" />
-          <h1 className="text-3xl font-bold text-civix-dark-brown dark:text-white" style={{ fontWeight: '700' }}>
+          <Separator orientation="vertical" className="h-6 hidden sm:block" />
+          <h1 className="text-2xl sm:text-3xl font-bold text-civix-dark-brown dark:text-white" style={{ fontWeight: '700' }}>
             Volunteer Dashboard
           </h1>
         </div>
@@ -190,7 +190,7 @@ export default function VolunteerDashboard({ onNavigate, userName }: VolunteerDa
         </div>
       </div>
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
@@ -284,7 +284,7 @@ export default function VolunteerDashboard({ onNavigate, userName }: VolunteerDa
                       <div className="flex flex-col md:flex-row gap-6">
                         {/* Photo */}
                         {complaint.photo_url && (
-                          <div className="md:w-48 h-48 rounded-lg overflow-hidden bg-civix-warm-beige dark:bg-gray-700 flex-shrink-0">
+                          <div className="w-full md:w-48 h-48 rounded-lg overflow-hidden bg-civix-warm-beige dark:bg-gray-700 flex-shrink-0">
                             <img
                               src={complaint.photo_url}
                               alt={complaint.title}

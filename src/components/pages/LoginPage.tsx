@@ -81,7 +81,7 @@ export default function LoginPage({ onNavigate, onLogin }: LoginPageProps) {
             {/* Content */}
             <div className="relative z-10 flex flex-col min-h-screen">
                 {/* Header */}
-                <header className="w-full px-6 py-4">
+                <header className="w-full px-4 sm:px-6 py-4">
                     <div className="max-w-7xl mx-auto flex items-center">
                         <Button 
                             variant="ghost" 
@@ -103,7 +103,7 @@ export default function LoginPage({ onNavigate, onLogin }: LoginPageProps) {
                 </header>
 
                 {/* Main Content */}
-                <main className="flex-1 flex items-center justify-center px-6 py-12">
+                <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12">
                     <div className="w-full max-w-md">
                         <Card className="bg-white/95 backdrop-blur-sm shadow-2xl border-0">
                             <CardHeader className="text-center space-y-2">

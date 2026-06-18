@@ -49,7 +49,7 @@ const LandingPage = ({ onNavigate }: LandingPageProps) => {
                 
                 <section className="flex flex-col lg:flex-row items-center justify-between gap-8 pt-24 pb-12">
                     <div className="max-w-xl text-left animate-fade-in-slide" style={{ animationDelay: '0.2s' }}>
-                        <h1 className="text-7xl font-extrabold leading-tight text-civix-dark-brown">
+                        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight text-civix-dark-brown">
                             Your Voice. <br />Your Power. <br />Your Civix.
                         </h1>
                         <p className="mt-6 mb-8 text-xl text-civix-dark-brown/80 max-w-md">

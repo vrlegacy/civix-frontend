@@ -51,7 +51,7 @@ const SharedLayout: React.FC<SharedLayoutProps> = ({ children, activePage, onNav
     <div className="min-h-screen flex flex-col bg-civix-sandal dark:bg-gray-900 text-civix-dark-brown dark:text-civix-sandal">
       {/* Header */}
       <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-civix-warm-beige dark:border-gray-700 shadow-sm sticky top-0 z-40">
-        <div className="w-full px-6 py-3">
+        <div className="w-full px-4 sm:px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-8">
               <h1 className="text-2xl font-bold text-civix-dark-brown dark:text-white cursor-pointer" onClick={() => onNavigate('dashboard')}>Civix</h1>
@@ -140,13 +140,13 @@ const SharedLayout: React.FC<SharedLayoutProps> = ({ children, activePage, onNav
         )}
       </header>
 
-      <main className="flex-1 flex flex-col w-full px-6 py-6">
+      <main className="flex-1 flex flex-col w-full px-4 sm:px-6 py-6">
         {children}
       </main>
 
       {/* Footer */}
       <footer className="bg-civix-dark-brown dark:bg-gray-950 border-t border-civix-dark-brown/20 dark:border-gray-800 py-6 mt-auto w-full">
-        <div className="w-full px-6">
+        <div className="w-full px-4 sm:px-6">
           <div className="text-center text-civix-sandal dark:text-civix-sandal/90 font-medium">
             <p>Civix – Empowering Citizens | © 2026</p>
           </div>

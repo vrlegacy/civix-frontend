@@ -198,8 +198,6 @@ export default function PetitionsModule({ onNavigate, selectedItemId, userName, 
         description,
         category,
         location: location.trim(),
-        latitude: latitude ? parseFloat(latitude) : undefined,
-        longitude: longitude ? parseFloat(longitude) : undefined,
         targetAuthority,
         signatureGoal: goal,
       });
@@ -282,19 +280,19 @@ export default function PetitionsModule({ onNavigate, selectedItemId, userName, 
 
     return (
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <Button 
             variant="ghost" 
             onClick={handleBackToList}
-            className="text-civix-dark-brown dark:text-civix-sandal hover:bg-civix-warm-beige dark:hover:bg-gray-700"
+            className="text-civix-dark-brown dark:text-civix-sandal hover:bg-civix-warm-beige dark:hover:bg-gray-700 w-full sm:w-auto justify-start"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Petitions List
           </Button>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 w-full sm:w-auto">
             <Button
               size="sm"
-              className={petition.isSignedByCurrentUser ? "bg-gray-300 text-gray-700 cursor-not-allowed" : "bg-civix-civic-green text-white hover:bg-civix-civic-green/90"}
+              className={`flex-1 sm:flex-none ${petition.isSignedByCurrentUser ? "bg-gray-300 text-gray-700 cursor-not-allowed" : "bg-civix-civic-green text-white hover:bg-civix-civic-green/90"}`}
               disabled={petition.isSignedByCurrentUser}
               onClick={() => handleSign(petition)}
             >
@@ -313,7 +311,7 @@ export default function PetitionsModule({ onNavigate, selectedItemId, userName, 
                   toast.error('Failed to copy link');
                 }
               }}
-              className="border-civix-warm-beige dark:border-gray-600 text-civix-dark-brown dark:text-civix-sandal"
+              className="border-civix-warm-beige dark:border-gray-600 text-civix-dark-brown dark:text-civix-sandal flex-1 sm:flex-none"
             >
               <Share2 className="w-4 h-4 mr-2" />
               Share
@@ -322,11 +320,11 @@ export default function PetitionsModule({ onNavigate, selectedItemId, userName, 
         </div>
 
         <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
-          <CardContent className="p-8">
+          <CardContent className="p-4 sm:p-8">
             <div className="space-y-8">
               <div>
                 <div className="flex items-center space-x-3 mb-4 flex-wrap gap-2">
-                  <h2 className="text-3xl font-bold text-civix-dark-brown dark:text-white">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-civix-dark-brown dark:text-white">
                     {petition.title}
                   </h2>
                   {petition.status === 'trending' && (
@@ -410,17 +408,17 @@ export default function PetitionsModule({ onNavigate, selectedItemId, userName, 
     <div className="w-full py-2">
       <div className="space-y-6">
         {/* Title Header */}
-        <div className="flex items-center space-x-4 mb-6">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-6">
           <Button
             variant="ghost"
             onClick={() => onNavigate('dashboard')}
-            className="text-civix-dark-brown dark:text-civix-sandal hover:bg-civix-warm-beige dark:hover:bg-gray-700"
+            className="text-civix-dark-brown dark:text-civix-sandal hover:bg-civix-warm-beige dark:hover:bg-gray-700 h-9 px-3"
           >
-            <ArrowLeft className="w-5 h-5 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
-          <Separator orientation="vertical" className="h-6" />
-          <h1 className="text-3xl font-bold text-civix-dark-brown dark:text-white" style={{ fontWeight: '700' }}>
+          <Separator orientation="vertical" className="h-6 hidden sm:block" />
+          <h1 className="text-2xl sm:text-3xl font-bold text-civix-dark-brown dark:text-white" style={{ fontWeight: '700' }}>
             Public Petitions
           </h1>
         </div>
@@ -429,7 +427,7 @@ export default function PetitionsModule({ onNavigate, selectedItemId, userName, 
           <>
             {/* View Toggle tabs bar with buttons */}
             <div className="flex items-center justify-between flex-wrap gap-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 rounded-lg shadow-md mb-8">
-              <div className="flex space-x-2">
+              <div className="flex flex-wrap gap-2">
                 <Button
                   variant={view === 'my' ? 'default' : 'outline'}
                   onClick={() => {

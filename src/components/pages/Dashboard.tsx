@@ -194,7 +194,7 @@ export default function Dashboard({ onNavigate, userName }: DashboardProps) {
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 flex flex-col justify-around py-4">
-              <div className="space-y-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:flex lg:flex-col lg:space-y-4 gap-4 lg:gap-0 lg:justify-around">
                 {/* Petitions Section */}
                 <div>
                   <div className="text-center mb-2">
@@ -237,7 +237,7 @@ export default function Dashboard({ onNavigate, userName }: DashboardProps) {
                   </div>
                 </div>
 
-                <Separator />
+                <Separator className="hidden lg:block" />
 
                 {/* Complaints Section */}
                 <div className="text-center">
@@ -270,7 +270,7 @@ export default function Dashboard({ onNavigate, userName }: DashboardProps) {
                   <div className="text-xs text-civix-dark-brown/70 dark:text-civix-sandal/70">Resolved This Month</div>
                 </div>
 
-                <Separator />
+                <Separator className="hidden lg:block" />
 
                 {/* Polls Section */}
                 <div>
@@ -312,7 +312,7 @@ export default function Dashboard({ onNavigate, userName }: DashboardProps) {
                   </div>
                 </div>
 
-                <Separator />
+                <Separator className="hidden lg:block" />
 
                 {/* Response Rate */}
                 <div className="text-center">

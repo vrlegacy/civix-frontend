@@ -507,7 +507,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
 
         {/* -------- Complaints Stats -------- */}
         {activeTab === "complaints" && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {/* Total (optional): add a count card if you want */}
             <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
               <CardContent className="p-6">
@@ -577,7 +577,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
 
         {/* -------- Polls Stats -------- */}
         {activeTab === "polls" && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -644,7 +644,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
 
         {/* -------- Petitions Stats -------- */}
         {activeTab === "petitions" && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -1198,7 +1198,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
           <div id="reports-wrapper" className="relative">
             <div id="reports-content" className="space-y-6">
               {/* First Row - Totals */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
                   <CardContent className="p-6">
                     <p className="text-sm text-civix-dark-brown/70 dark:text-civix-sandal/70 mb-1">Total Items</p>
@@ -1237,7 +1237,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
               </div>
 
               {/* Second Row - Assigned */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
                   <CardContent className="p-6">
                     <p className="text-sm text-civix-dark-brown/70 dark:text-civix-sandal/70 mb-1">Total Assigned</p>
@@ -1278,7 +1278,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
               </div>
 
               {/* Third Row - Resolved */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg">
                   <CardContent className="p-6">
                     <p className="text-sm text-civix-dark-brown/70 dark:text-civix-sandal/70 mb-1">Total Resolved</p>
