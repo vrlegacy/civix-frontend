@@ -43,6 +43,7 @@ export default function SignUpPage({ onNavigate, onSignUp }: SignUpPageProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [verificationRequired, setVerificationRequired] = useState(true);
   const [detecting, setDetecting] = useState(false);
   const [detectedInfo, setDetectedInfo] = useState<{ city?: string; lat?: number; lon?: number }>({});
   const [showMap, setShowMap] = useState(false);
@@ -172,6 +173,7 @@ export default function SignUpPage({ onNavigate, onSignUp }: SignUpPageProps) {
       });
 
       console.log('Signup successful:', data);
+      setVerificationRequired(data?.requiresVerification !== false);
       setIsSubmitted(true);
 
     } catch (err: any) {
@@ -305,14 +307,30 @@ export default function SignUpPage({ onNavigate, onSignUp }: SignUpPageProps) {
                 ) : (
                   <div className="py-6 text-center space-y-6">
                     <div className="bg-civix-civic-green/10 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-civix-civic-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 19v-8.93a2 2 0 01.89-1.664l8-5.333a2 2 0 012.22 0l8 5.333A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-2.25-1.5a2 2 0 00-2.22 0l-2.25 1.5" />
-                      </svg>
+                      {verificationRequired ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-civix-civic-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 19v-8.93a2 2 0 01.89-1.664l8-5.333a2 2 0 012.22 0l8 5.333A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-2.25-1.5a2 2 0 00-2.22 0l-2.25 1.5" />
+                        </svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-civix-civic-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-civix-dark-brown">Verify Your Email</h3>
+                      <h3 className="text-xl font-bold text-civix-dark-brown">
+                        {verificationRequired ? "Verify Your Email" : "Account Created Successfully!"}
+                      </h3>
                       <p className="text-sm text-civix-dark-brown/80 px-4">
-                        A verification link has been sent to <span className="font-semibold text-civix-dark-brown">{formData.email}</span>. Please check your inbox and verify your email to activate your account.
+                        {verificationRequired ? (
+                          <>
+                            A verification link has been sent to <span className="font-semibold text-civix-dark-brown">{formData.email}</span>. Please check your inbox and verify your email to activate your account.
+                          </>
+                        ) : (
+                          <>
+                            Your account for <span className="font-semibold text-civix-dark-brown">{formData.email}</span> has been set up successfully. You can log in immediately.
+                          </>
+                        )}
                       </p>
                     </div>
                     <div className="pt-2">
