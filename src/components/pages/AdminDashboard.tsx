@@ -472,32 +472,32 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
       <div className="space-y-8">
         <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-lg mb-6">
           <CardContent className="p-6">
-            <div className="flex gap-4 mb-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4">
               <Button
                 variant={activeTab === "complaints" ? "default" : "outline"}
                 onClick={() => setActiveTab("complaints")}
-                className="flex-1"
+                className="w-full"
               >
                 Complaints
               </Button>
               <Button
                 variant={activeTab === "polls" ? "default" : "outline"}
                 onClick={() => setActiveTab("polls")}
-                className="flex-1"
+                className="w-full"
               >
                 Polls
               </Button>
               <Button
                 variant={activeTab === "petitions" ? "default" : "outline"}
                 onClick={() => setActiveTab("petitions")}
-                className="flex-1"
+                className="w-full"
               >
                 Petitions
               </Button>
               <Button
                 variant={activeTab === "reports" ? "default" : "outline"}
                 onClick={() => setActiveTab("reports")}
-                className="flex-1"
+                className="w-full"
               >
                 Reports
               </Button>
@@ -812,122 +812,124 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
                   <span className="ml-2 text-civix-dark-brown dark:text-civix-sandal">Loading complaints...</span>
                 </div>
               ) : (
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Title</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Location</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Assigned To</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredComplaints.map((complaint) => (
-                      <TableRow key={complaint._id}>
-                        <TableCell className="font-medium">{complaint.title}</TableCell>
-                        <TableCell>
-                          <Badge
-                            variant="outline"
-                            className="border-civix-dark-brown text-civix-dark-brown dark:border-civix-sandal dark:text-civix-sandal"
-                          >
-                            {complaint.category}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1 text-civix-dark-brown/50 dark:text-civix-sandal/50" />
-                            {complaint.location}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          {(() => {
-                            switch (complaint.status) {
-                              case "received":
-                                return (
-                                  <Badge variant="outline" className="border-yellow-500 text-yellow-600 dark:text-yellow-400">
-                                    <Clock className="w-3 h-3 mr-1" />
-                                    Received
-                                  </Badge>
-                                );
-                              case "in_review":
-                                return (
-                                  <Badge variant="outline" className="border-orange-500 text-orange-600 dark:text-orange-400">
-                                    <AlertCircle className="w-3 h-3 mr-1" />
-                                    In Review
-                                  </Badge>
-                                );
-                              case "resolved":
-                                return (
-                                  <Badge variant="outline" className="border-green-500 text-green-600 dark:text-green-400">
-                                    <CheckCircle className="w-3 h-3 mr-1" />
-                                    Resolved
-                                  </Badge>
-                                );
-                              default:
-                                return (
-                                  <Badge variant="outline" className="border-gray-500 text-gray-600 dark:text-gray-400">
-                                    <Clock className="w-3 h-3 mr-1" />
-                                    Unknown
-                                  </Badge>
-                                );
-                            }
-                          })()}
-                        </TableCell>
-                        <TableCell>
-                          {complaint.assigned_to ? (
-                            <Badge className="bg-civix-civic-green text-white">
-                              {typeof complaint.assigned_to === "string"
-                                ? complaint.assigned_to
-                                : complaint.assigned_to.name || "Volunteer"}
-                            </Badge>
-                          ) : (
-                            <span className="text-civix-dark-brown/50 dark:text-civix-sandal/50">Unassigned</span>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1 text-civix-dark-brown/50 dark:text-civix-sandal/50" />
-                            {new Date(complaint.createdAt).toLocaleDateString()}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center space-x-2">
-                            <Button
-                              type="button"
-                              size="sm"
+                <div className="w-full overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Category</TableHead>
+                        <TableHead>Location</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Assigned To</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredComplaints.map((complaint) => (
+                        <TableRow key={complaint._id}>
+                          <TableCell className="font-medium">{complaint.title}</TableCell>
+                          <TableCell>
+                            <Badge
                               variant="outline"
-                              onClick={() => {
-                                setDetailsComplaint(complaint);
-                                setViewDetailsDialogOpen(true);
-                              }}
-                              className="border-civix-civic-green text-civix-civic-green hover:bg-civix-civic-green hover:text-white"
+                              className="border-civix-dark-brown text-civix-dark-brown dark:border-civix-sandal dark:text-civix-sandal"
                             >
-                              <Eye className="w-3 h-3 mr-1" />
-                              View
-                            </Button>
-                            {!complaint.assigned_to && (
+                              {complaint.category}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center">
+                              <MapPin className="w-4 h-4 mr-1 text-civix-dark-brown/50 dark:text-civix-sandal/50" />
+                              {complaint.location}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            {(() => {
+                              switch (complaint.status) {
+                                case "received":
+                                  return (
+                                    <Badge variant="outline" className="border-yellow-500 text-yellow-600 dark:text-yellow-400">
+                                      <Clock className="w-3 h-3 mr-1" />
+                                      Received
+                                    </Badge>
+                                  );
+                                case "in_review":
+                                  return (
+                                    <Badge variant="outline" className="border-orange-500 text-orange-600 dark:text-orange-400">
+                                      <AlertCircle className="w-3 h-3 mr-1" />
+                                      In Review
+                                    </Badge>
+                                  );
+                                case "resolved":
+                                  return (
+                                    <Badge variant="outline" className="border-green-500 text-green-600 dark:text-green-400">
+                                      <CheckCircle className="w-3 h-3 mr-1" />
+                                      Resolved
+                                    </Badge>
+                                  );
+                                default:
+                                  return (
+                                    <Badge variant="outline" className="border-gray-500 text-gray-600 dark:text-gray-400">
+                                      <Clock className="w-3 h-3 mr-1" />
+                                      Unknown
+                                    </Badge>
+                                  );
+                              }
+                            })()}
+                          </TableCell>
+                          <TableCell>
+                            {complaint.assigned_to ? (
+                              <Badge className="bg-civix-civic-green text-white">
+                                {typeof complaint.assigned_to === "string"
+                                  ? complaint.assigned_to
+                                  : complaint.assigned_to.name || "Volunteer"}
+                              </Badge>
+                            ) : (
+                              <span className="text-civix-dark-brown/50 dark:text-civix-sandal/50">Unassigned</span>
+                            )}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center">
+                              <Calendar className="w-4 h-4 mr-1 text-civix-dark-brown/50 dark:text-civix-sandal/50" />
+                              {new Date(complaint.createdAt).toLocaleDateString()}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center space-x-2">
                               <Button
                                 type="button"
                                 size="sm"
+                                variant="outline"
                                 onClick={() => {
-                                  setSelectedComplaint(complaint);
-                                  setAssignDialogOpen(true);
+                                  setDetailsComplaint(complaint);
+                                  setViewDetailsDialogOpen(true);
                                 }}
-                                className="bg-civix-civic-green hover:bg-civix-civic-green/90 text-white"
+                                className="border-civix-civic-green text-civix-civic-green hover:bg-civix-civic-green hover:text-white"
                               >
-                                <UserPlus className="w-3 h-3 mr-1" />
-                                Assign
+                                <Eye className="w-3 h-3 mr-1" />
+                                View
                               </Button>
-                            )}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                              {!complaint.assigned_to && (
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  onClick={() => {
+                                    setSelectedComplaint(complaint);
+                                    setAssignDialogOpen(true);
+                                  }}
+                                  className="bg-civix-civic-green hover:bg-civix-civic-green/90 text-white"
+                                >
+                                  <UserPlus className="w-3 h-3 mr-1" />
+                                  Assign
+                                </Button>
+                              )}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               )}
             </CardContent>
           </Card>
@@ -950,70 +952,72 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
               </div>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Duration</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Assigned To</TableHead>
-                    <TableHead>Date Created</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {polls.map((poll) => (
-                    <TableRow key={poll._id}>
-                      <TableCell>{poll.title}</TableCell>
-                      <TableCell>{poll.category}</TableCell>
-                      <TableCell>{poll.target_location}</TableCell>
-                      <TableCell>{poll.duration} hr</TableCell>
-                      <TableCell>{poll.status || "active"}</TableCell>
-                      <TableCell>
-                        {poll.assigned_to ? (
-                          <Badge className="bg-civix-civic-green text-white">
-                            {volunteers.find(v => v.id === poll.assigned_to)?.name || 'Assigned'}
-                          </Badge>
-                        ) : (
-                          <span className="text-civix-dark-brown/50 dark:text-civix-sandal/50">Unassigned</span>
-                        )}
-                      </TableCell>
-                      <TableCell>{poll.createdAt ? new Date(poll.createdAt).toLocaleDateString() : ""}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center space-x-2">
-                          <Button 
-                            size="sm" 
-                            variant="outline" 
-                            type="button"
-                            onClick={() => {
-                              setSelectedPollDetails(poll);
-                              setPollDetailsOpen(true);
-                              fetchPollVotes(poll._id);
-                            }}
-                            className="border-civix-civic-green text-civix-civic-green hover:bg-civix-civic-green hover:text-white"
-                          >
-                            <Eye className="w-3 h-3 mr-1" />
-                            View
-                          </Button>
-                          {!poll.assigned_to && (
-                            <Button
-                              type="button"
-                              size="sm"
-                              onClick={() => { setSelectedPollToAssign(poll); setAssignPollDialogOpen(true); }}
-                              className="bg-civix-civic-green hover:bg-civix-civic-green/90 text-white"
-                            >
-                              <UserPlus className="w-3 h-3 mr-1" />
-                              Assign
-                            </Button>
-                          )}
-                        </div>
-                      </TableCell>
+              <div className="w-full overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Title</TableHead>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Location</TableHead>
+                      <TableHead>Duration</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Assigned To</TableHead>
+                      <TableHead>Date Created</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {polls.map((poll) => (
+                      <TableRow key={poll._id}>
+                        <TableCell>{poll.title}</TableCell>
+                        <TableCell>{poll.category}</TableCell>
+                        <TableCell>{poll.target_location}</TableCell>
+                        <TableCell>{poll.duration} hr</TableCell>
+                        <TableCell>{poll.status || "active"}</TableCell>
+                        <TableCell>
+                          {poll.assigned_to ? (
+                            <Badge className="bg-civix-civic-green text-white">
+                              {volunteers.find(v => v.id === poll.assigned_to)?.name || 'Assigned'}
+                            </Badge>
+                          ) : (
+                            <span className="text-civix-dark-brown/50 dark:text-civix-sandal/50">Unassigned</span>
+                          )}
+                        </TableCell>
+                        <TableCell>{poll.createdAt ? new Date(poll.createdAt).toLocaleDateString() : ""}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-2">
+                            <Button 
+                              size="sm" 
+                              variant="outline" 
+                              type="button"
+                              onClick={() => {
+                                setSelectedPollDetails(poll);
+                                setPollDetailsOpen(true);
+                                fetchPollVotes(poll._id);
+                              }}
+                              className="border-civix-civic-green text-civix-civic-green hover:bg-civix-civic-green hover:text-white"
+                            >
+                              <Eye className="w-3 h-3 mr-1" />
+                              View
+                            </Button>
+                            {!poll.assigned_to && (
+                              <Button
+                                type="button"
+                                size="sm"
+                                onClick={() => { setSelectedPollToAssign(poll); setAssignPollDialogOpen(true); }}
+                                className="bg-civix-civic-green hover:bg-civix-civic-green/90 text-white"
+                              >
+                                <UserPlus className="w-3 h-3 mr-1" />
+                                Assign
+                              </Button>
+                            )}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         )}
@@ -1121,68 +1125,70 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate, userName, u
               </div>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Date</TableHead>
-                     <TableHead>Assign to Volunteer</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {petitions.map((petition) => (
-                    <TableRow key={petition._id}>
-                      <TableCell>{petition.title}</TableCell>
-                      <TableCell>{petition.category}</TableCell>
-                      <TableCell>{petition.location}</TableCell>
-                      <TableCell>{petition.status}</TableCell>
-                      <TableCell>{petition.createdAt ? new Date(petition.createdAt).toLocaleDateString() : ""}</TableCell>
-                       <TableCell>
-                         {petition.assigned_to ? (
-                           <div className="flex items-center space-x-2">
-                             <Badge className="bg-civix-civic-green text-white">Assigned</Badge>
-                             <span className="text-sm text-civix-dark-brown/70 dark:text-civix-sandal/70">
-                               {volunteers.find(v => v.id === petition.assigned_to)?.name || 'Unknown'}
-                             </span>
-                           </div>
-                         ) : (
-                           <Button
-                             type="button"
-                             size="sm"
-                             onClick={() => { setSelectedPetitionToAssign(petition); setAssignPetitionDialogOpen(true); }}
-                             className="bg-civix-civic-green hover:bg-civix-civic-green/90 text-white"
-                           >
-                             <UserPlus className="w-3 h-3 mr-1" />
-                             Assign
-                           </Button>
-                         )}
-                        </TableCell>
-                      <TableCell>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          type="button"
-                          onClick={() => {
-                            setSelectedPetition(petition);
-                            setPetitionDetailsDialogOpen(true);
-                          }}
-                        >
-                          View Details
-                        </Button>
-                        {userRole === "citizen" && (
-                          <Button size="sm" type="button" className="ml-2" onClick={() => handleSignPetition(petition._id)}>
-                            Sign
-                          </Button>
-                        )}
-                      </TableCell>
+              <div className="w-full overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Title</TableHead>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Location</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Date</TableHead>
+                       <TableHead>Assign to Volunteer</TableHead>
+                      <TableHead>Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {petitions.map((petition) => (
+                      <TableRow key={petition._id}>
+                        <TableCell>{petition.title}</TableCell>
+                        <TableCell>{petition.category}</TableCell>
+                        <TableCell>{petition.location}</TableCell>
+                        <TableCell>{petition.status}</TableCell>
+                        <TableCell>{petition.createdAt ? new Date(petition.createdAt).toLocaleDateString() : ""}</TableCell>
+                         <TableCell>
+                           {petition.assigned_to ? (
+                             <div className="flex items-center space-x-2">
+                               <Badge className="bg-civix-civic-green text-white">Assigned</Badge>
+                               <span className="text-sm text-civix-dark-brown/70 dark:text-civix-sandal/70">
+                                 {volunteers.find(v => v.id === petition.assigned_to)?.name || 'Unknown'}
+                               </span>
+                             </div>
+                           ) : (
+                             <Button
+                               type="button"
+                               size="sm"
+                               onClick={() => { setSelectedPetitionToAssign(petition); setAssignPetitionDialogOpen(true); }}
+                               className="bg-civix-civic-green hover:bg-civix-civic-green/90 text-white"
+                             >
+                               <UserPlus className="w-3 h-3 mr-1" />
+                               Assign
+                             </Button>
+                           )}
+                          </TableCell>
+                        <TableCell>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            type="button"
+                            onClick={() => {
+                              setSelectedPetition(petition);
+                              setPetitionDetailsDialogOpen(true);
+                            }}
+                          >
+                            View Details
+                          </Button>
+                          {userRole === "citizen" && (
+                            <Button size="sm" type="button" className="ml-2" onClick={() => handleSignPetition(petition._id)}>
+                              Sign
+                            </Button>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         )}

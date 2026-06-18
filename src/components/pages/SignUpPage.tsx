@@ -8,6 +8,7 @@ import { useState } from "react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { authAPI } from "@/lib/api";
 
 type NominatimReverseResponse = {
   address: {
@@ -22,9 +23,7 @@ type NominatimReverseResponse = {
   [key: string]: any;
 };
 
-const API_BASE_URL = import.meta.env.VITE_API_URL 
-  ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') 
-  : 'http://localhost:5000';
+// Base URL handled by Axios config in api.ts
 
 interface SignUpPageProps {
   onNavigate: (page: 'landing' | 'login' | 'dashboard') => void;
@@ -162,31 +161,30 @@ export default function SignUpPage({ onNavigate, onSignUp }: SignUpPageProps) {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.fullName,
-          email: formData.email,
-          location: formData.location,
-          password: formData.password,
-          role: formData.role,
-          latitude: detectedInfo.lat,
-          longitude: detectedInfo.lon,
-        }),
+      const data = await authAPI.register({
+        name: formData.fullName,
+        email: formData.email,
+        location: formData.location,
+        password: formData.password,
+        role: formData.role,
+        latitude: detectedInfo.lat,
+        longitude: detectedInfo.lon,
       });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || data.message || 'An unexpected error occurred.');
-      }
 
       console.log('Signup successful:', data);
       setIsSubmitted(true);
 
     } catch (err: any) {
       console.error('Signup failed:', err);
-      setError(err.message);
+      let friendlyMessage = 'Signup failed. Please try again.';
+      if (err.response) {
+        friendlyMessage = err.response.data?.error || err.response.data?.message || friendlyMessage;
+      } else if (err.request || err.message === 'Network Error' || err.name === 'TypeError') {
+        friendlyMessage = 'Unable to connect to the server. Please check your internet connection or verify if the backend is running.';
+      } else {
+        friendlyMessage = err.message || friendlyMessage;
+      }
+      setError(friendlyMessage);
     } finally {
       setIsLoading(false);
     }
