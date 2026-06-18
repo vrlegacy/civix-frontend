@@ -1,9 +1,29 @@
 // ✅ API client for backend communication
 import axios from "axios";
 
+const getBaseURL = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  const hostname = window.location.hostname;
+  
+  // If we are on a production domain (Vercel, Netlify, etc. - not localhost or local IP)
+  if (hostname && !hostname.includes("localhost") && !hostname.includes("127.0.0.1") && !/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(hostname)) {
+    return "https://civix-backend-8grk.onrender.com/api";
+  }
+
+  if (envUrl) {
+    // If it points to localhost, but we are accessing from a mobile/external device (IP address)
+    if ((envUrl.includes("localhost") || envUrl.includes("127.0.0.1")) && hostname !== "localhost" && hostname !== "127.0.0.1") {
+      return envUrl.replace(/localhost|127\.0\.0\.1/, hostname);
+    }
+    return envUrl;
+  }
+  
+  return "https://civix-backend-8grk.onrender.com/api";
+};
+
 // ✅ Create axios instance with base configuration
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://civix-backend-8grk.onrender.com/api",
+  baseURL: getBaseURL(),
   timeout: 30000, // 30s default; image uploads get 60s override below
   // Do not set a default Content-Type here so that axios can
   // automatically set the correct header for FormData (multipart) requests.
