@@ -4,6 +4,8 @@ Civix is a modern, responsive, and interactive civic engagement web application 
 
 **Live Application:** [https://civix-zeta.vercel.app/](https://civix-zeta.vercel.app/)
 
+**Backend Rep:**  https://github.com/vrlegacy/civix-backend
+
 ---
 
 ## 🌟 Key Features
@@ -56,6 +58,9 @@ The Admin portal contains data visualizations that summarize civic activity:
 *   **Toasts:** Sonner
 
 ---
+[!NOTE]
+> **Project Origin & Credits**
+> This application was initially developed as a group project during an **Infosys Springboard Internship**. I was responsible for designing, building, and maintaining the entire **Backend API & database architecture**.
 
 ## 🚀 Installation & Local Setup
 
