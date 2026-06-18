@@ -56,6 +56,9 @@ The Admin portal contains data visualizations that summarize civic activity:
 *   **Toasts:** Sonner
 
 ---
+[!NOTE]
+> **Project Origin & Credits**
+> This application was initially developed as a group project during an **Infosys Springboard Internship**. I was responsible for designing, building, and maintaining the entire **Backend API & database architecture**.
 
 ## 🚀 Installation & Local Setup
 
