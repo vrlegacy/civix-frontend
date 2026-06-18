@@ -45,9 +45,16 @@ export default function LoginPage({ onNavigate, onLogin }: LoginPageProps) {
                 toast.error(msg);
             }
         } catch (error: any) {
-            const msg = error.response?.data?.error || error.message || 'Login failed';
-            setErrorMessage(msg);
-            toast.error(msg);
+            let friendlyMessage = 'Login failed. Please try again.';
+            if (error.response) {
+                friendlyMessage = error.response.data?.error || error.response.data?.message || friendlyMessage;
+            } else if (error.request || error.message === 'Network Error' || error.name === 'TypeError') {
+                friendlyMessage = 'Unable to connect to the server. Please check your internet connection or verify if the backend is running.';
+            } else {
+                friendlyMessage = error.message || friendlyMessage;
+            }
+            setErrorMessage(friendlyMessage);
+            toast.error(friendlyMessage);
         } finally {
             setIsLoading(false);
         }
